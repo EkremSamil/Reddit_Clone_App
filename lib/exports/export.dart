@@ -11,3 +11,4 @@ export 'package:flutter/foundation.dart';
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:firebase_storage/firebase_storage.dart';
+export 'package:reddit_clone_app/providers/firebase_providers.dart';
