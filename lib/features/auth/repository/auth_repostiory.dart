@@ -40,17 +40,18 @@ class AuthRepository {
       UserCredential userCredential = await _auth.signInWithCredential(credential);
       print({"User Credential : ${userCredential.user?.email}"});
 
-      UserModel userModel = UserModel(
-        name: userCredential.user!.displayName ?? "No Name",
-        profilePic: userCredential.user!.photoURL ?? Constants.avatarDefault,
-        banner: Constants.bannerDefault,
-        uid: userCredential.user!.uid,
-        isAuthenticated: true,
-        karma: 0,
-        awards: [],
-      );
-
-      await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      if (userCredential.additionalUserInfo!.isNewUser) {
+        UserModel userModel = UserModel(
+          name: userCredential.user!.displayName ?? "No Name",
+          profilePic: userCredential.user!.photoURL ?? Constants.avatarDefault,
+          banner: Constants.bannerDefault,
+          uid: userCredential.user!.uid,
+          isAuthenticated: true,
+          karma: 0,
+          awards: [],
+        );
+        await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      }
     } catch (e) {
       print(e);
     }
